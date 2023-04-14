@@ -1,16 +1,25 @@
 import React from "react";
-import { useAtom } from 'jotai'
-import { countAtom } from './atom'
+import ImageList from "./components/Images";
+import Info from "./components/info";
+import Status from "./components/status";
+import { useInfo } from "./database/swr";
+// import { useAtom } from 'jotai'
+// import { countAtom } from './atom'
 
-function App() {
-	const [count, setCount] = useAtom(countAtom);
-
+const App = React.memo(() => {
 	return (
 		<div className="App">
-			<h1 className="text-red-500">Rspack + React {count}</h1>
-			<button type='button' onClick={() => setCount(p => p + 1)}>add</button>
+			test
+			<Info />
+			<Status />
+			<ImageList />
 		</div>
 	);
+})
+
+function Wrap() {
+	useInfo()
+	return <App></App>
 }
 
-export default App;
+export default Wrap;
