@@ -1,25 +1,21 @@
-import React from "react";
-import ImageList from "./components/Images";
-import Info from "./components/info";
-import Status from "./components/status";
+import Info from "./components/Info";
+import Status from "./components/Status";
 import { useInfo } from "./database/swr";
-// import { useAtom } from 'jotai'
-// import { countAtom } from './atom'
+import { useMockSocket } from "./database/socket";
+import StockList from "./components/Stocks";
 
-const App = React.memo(() => {
+const App = () => {
+	useInfo()
+	useMockSocket()
+	
 	return (
-		<div className="App">
-			test
+		<div className="App bg-black text-fuchsia-50 w-full h-screen">
+			<div className="p-4 ">Stock</div>
 			<Info />
-			<Status />
-			<ImageList />
+			<StockList />
 		</div>
 	);
-})
-
-function Wrap() {
-	useInfo()
-	return <App></App>
 }
 
-export default Wrap;
+
+export default App;
