@@ -3,11 +3,10 @@ import Status from "./components/Status";
 import { useInfo } from "./database/swr";
 import { useMockSocket } from "./database/socket";
 import StockList from "./components/Stocks";
+import { ReactNode } from "react";
 
-const App = () => {
+const App = () => {	
 	useInfo()
-	useMockSocket()
-	
 	return (
 		<div className="App bg-black text-fuchsia-50 w-full h-screen">
 			<div className="p-4 ">Stock</div>
@@ -16,6 +15,5 @@ const App = () => {
 		</div>
 	);
 }
-
 
 export default App;
