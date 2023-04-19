@@ -1,8 +1,7 @@
 import { useAtomValue } from "jotai"
-import { basicAtom } from "../database/atom"
+import { useBasicInfo } from "../database/query"
 import React from "react"
 import Status from "./Status"
-import { useBasicInfo } from "../database/swr"
 
 const Info = () => {
   const {locale, name} = useBasicInfo() || {}

@@ -21,15 +21,11 @@ export function useSplitAtom<T>(anAtom: Atom<T[]>) {
 }
 
 export function useSplitAtomByIndex<T>(splitAtom: Atom<Atom<T>[]>, id:number){
-  return  useAtomValue(useAtomValue(splitAtom)[id])
+  const atomList = useAtomValue(splitAtom)
+  const targetAtom = atomList?.[id]
+  if(!atomList?.[id]){
+    return 
+  }
+  return useAtomValue(targetAtom)
 }
 
-// atoms
-export const basicAtom = atomWithDeepCompare<Pick<InfoType, 'name'|'locale'>| null>(null)
-export const IndexStatusAtom = atom<InfoType['status']|null>(null)
-
-export const stocksMetaAtomAtom = atom<Pick<Stock,'name'>[]>([])
-export const stocksMetaAtom = splitAtom(stocksMetaAtomAtom)
-
-export const stocksStatusAtomAtom =  atom<Pick<Stock,'status'>[]>([])
-export const stocksStatusAtom = splitAtom(stocksStatusAtomAtom)

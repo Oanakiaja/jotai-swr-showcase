@@ -1,8 +1,7 @@
 import { Atom, useAtomValue } from "jotai"
 import { Stock, StockStatus } from "../database/model"
-import {  stocksStatusAtom, useSplitAtomByIndex } from "../database/atom"
 import Status from "./Status"
-import { useStocksMetaAtoms } from "../database/swr"
+import { useStockStatusByID, useStocksMetaAtoms } from "../database/query"
 import { memo } from "react"
 
 type Props = {
@@ -12,17 +11,20 @@ type Props = {
 
 const StockStatusComp = memo((props: { id: number }) => {
   const { id } = props
-  const {status } = useSplitAtomByIndex(stocksStatusAtom,id)
+  const status = useStockStatusByID(id)
+
   if (status === StockStatus.UP) {
     return <div className="text-red-200">Up</div>
   }
-  return <div className="text-green-200">Down</div>
+  if (status === StockStatus.DOWN) {
+    return <div className="text-green-200">Down</div>
+  }
+  return <></>
 })
 
 const Stock = memo((props: Props) => {
   const { stockMetaAtom, children } = props
   const stock = useAtomValue(stockMetaAtom)
-
   return <div className="m-4 p-4 border-2 rounded-lg">
     <div>{stock.name}</div>
     <div className="flex justify-between">

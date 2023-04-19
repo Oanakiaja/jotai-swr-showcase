@@ -1,35 +1,21 @@
 import {EventEmitter} from 'eventemitter3'
 import { getIndexStatus } from './polling'
-import useSWRSubscription from 'swr/subscription'
-import { IndexStatus } from './model'
 
-enum EventType {
+export enum EventType {
   MessageUpdateStatus = 'MessageUpdateStatus'
 }
  
-const mockSocket = new EventEmitter() 
-const startMockSocket = ()=>{
+let mockSocket: null | EventEmitter = new EventEmitter() 
+export const startMockSocket = ()=>{
   const id = setInterval(()=>{
-    mockSocket.emit(EventType.MessageUpdateStatus, getIndexStatus())
+    mockSocket?.emit(EventType.MessageUpdateStatus, getIndexStatus())
   }, 1000)
 
-  return ()=> clearInterval(id)
+  const clear = ()=> {
+    clearInterval(id)
+    mockSocket = null
+  }
+
+  return {socket: mockSocket, clear}
 }
-
-
-const useMockSocket = ()=>{
-  const { data, error } = useSWRSubscription<IndexStatus>('wss://IndexMessageUrl', 
-  (_: string, 
-  { next }: {next:  (error: unknown, data: IndexStatus)=> void}) => {
-    const clear = startMockSocket()
-    mockSocket.on(EventType.MessageUpdateStatus, (status: IndexStatus)=>{
-      next(null, status)
-    })
-    return clear
-  })
-  return { data, error}
-}
-
-export { useMockSocket }
-
 
