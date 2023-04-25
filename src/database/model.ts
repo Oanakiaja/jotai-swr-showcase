@@ -17,15 +17,14 @@ export type InfoType = {
   stocks: Stock[]
 }
 
+const TEST_STOCKS_DATA = new Array(1000).fill(0).map((_,i)=>({
+  name: `${i}-Kevin Company`,
+  status: StockStatus.UP
+}))
+
 export const info: InfoType = {
   name: 'Online',
   locale: 'Hongkong',
   status: IndexStatus.UP,
-  stocks: [{
-    name: 'Kevin Company',
-    status: StockStatus.UP
-  }, {
-    name: 'Joe Company',
-    status: StockStatus.DOWN
-  }]
+  stocks: TEST_STOCKS_DATA
 }

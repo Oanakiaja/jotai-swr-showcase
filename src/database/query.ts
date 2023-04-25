@@ -12,7 +12,8 @@ const fetcher = () => mockFetch500ms();
 const [infoAtom] = atomsWithQuery(() => ({
   queryKey: ["info"],
   queryFn: fetcher,
-  refetchInterval: 5000,
+  refetchInterval: 3000,
+  
 }))  as unknown as [Atom<InfoType>]; 
 
 // atom split
@@ -63,6 +64,8 @@ export const useBasicInfo = () => {
 export const useIndexStatus = () => {
   const pollingStatus =  useAtomValue(IndexStatusAtom);
   const [commitValue, setCommitValue] =  useAtom(IndexStatusMessageAtom)
+  console.log('pollingState', pollingStatus)
+  // console.log(commitValue)
   useEffect(()=>{
     const {socket, clear} = startMockSocket()
     socket?.on(EventType.MessageUpdateStatus, (status)=>{

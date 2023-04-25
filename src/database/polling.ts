@@ -8,6 +8,7 @@ export const getStockStatus = ()=> Math.random() < 0.5 ? StockStatus.DOWN : Stoc
 const mockFetchCreator = (timeout: number) => async () => {
   const res = await new Promise((res) => {
     setTimeout(() => {
+      console.log('fetch success')
       res({
         ...info,
         status: getIndexStatus(),

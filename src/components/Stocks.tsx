@@ -29,8 +29,8 @@ const StockMetaComp = ({stockMetaAtom}: {stockMetaAtom: Atom<Pick<Stock, "name">
 
 const Stock = memo((props: Props) => {
   const { stockMetaAtom, children } = props
-  return <div className="m-4 p-4 border-2 rounded-lg">
-   <StockMetaComp stockMetaAtom={stockMetaAtom} />
+  return <div className="m-4 p-4 border-2 rounded-lg w-[200px] h-[80px]">
+    <StockMetaComp stockMetaAtom={stockMetaAtom} />
     <div className="flex justify-between">
       <Status />
       {children}
@@ -41,7 +41,7 @@ const Stock = memo((props: Props) => {
 const StockList = memo(() => {
   const stocksMetaAtom = useStocksMetaAtoms()
   if (stocksMetaAtom.length === 0) return <></>
-  return <div className="flex rounded-lg
+  return <div className="flex rounded-lg    flex-wrap
   m-4 p-4 border-t-2 bg-zinc-600 border-zinc-500">
     {stocksMetaAtom.map((atom, idx) =>
       <Stock stockMetaAtom={atom} key={idx} >

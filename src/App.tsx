@@ -3,7 +3,7 @@ import StockList from "./components/Stocks";
 
 const App = () => {	
 	return (
-		<div className="App bg-black text-fuchsia-50 w-full h-screen">
+		<div className="App bg-black text-fuchsia-50 w-full ">
 			<div className="p-4 ">Stock</div>
 			<Info />
 			<StockList />
