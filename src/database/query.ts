@@ -35,18 +35,15 @@ const IndexStatusMessageAtom = atom<InfoType["status"]| null>(null)
 
 const stocksMetaAtomAtom = atom<Pick<Stock, "name">[]>((get) => {
   const info = get(infoAtom);
-  // FIXME: 这块取了引用，导致重复渲染
   const stockBasicInfos = info?.stocks?.map((v: Stock) => pick(v, "name")) || [];
   return stockBasicInfos;
 });
 
-const stocksMetaAtom = splitAtom(stocksMetaAtomAtom);
+export const stocksMetaAtom = splitAtom(stocksMetaAtomAtom);
 
 const stocksStatusAtomAtom = atom<Pick<Stock, "status">[]>((get) => {
   const info = get(infoAtom);
-  // FIXME: 这块取了引用，导致重复渲染
-  const stockStatusInfos =
-    info?.stocks?.map((v: Stock) => pick(v, "status")) || [];
+  const stockStatusInfos = info?.stocks?.map((v: Stock) => pick(v, "status")) || [];
   return stockStatusInfos;
 });
 
@@ -54,7 +51,7 @@ const stocksStatusAtom = splitAtom(stocksStatusAtomAtom);
 
 // consume hooks
 import { useAtomValue } from "jotai";
-import { useSplitAtomByIndex } from "./atom";
+import { atomWithDeepCompare, useSplitAtomByIndex } from "./atom";
 import { useEffect } from "react";
 
 export const useBasicInfo = () => {

@@ -22,11 +22,15 @@ const StockStatusComp = memo((props: { id: number }) => {
   return <></>
 })
 
+const StockMetaComp = ({stockMetaAtom}: {stockMetaAtom: Atom<Pick<Stock, "name">>})=>{
+  const stock = useAtomValue(stockMetaAtom)
+  return <div>{stock.name}</div>
+}
+
 const Stock = memo((props: Props) => {
   const { stockMetaAtom, children } = props
-  const stock = useAtomValue(stockMetaAtom)
   return <div className="m-4 p-4 border-2 rounded-lg">
-    <div>{stock.name}</div>
+   <StockMetaComp stockMetaAtom={stockMetaAtom} />
     <div className="flex justify-between">
       <Status />
       {children}
